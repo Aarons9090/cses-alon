@@ -1,3 +1,5 @@
+# project files
+*.pro.user
 # Prerequisites
 *.d
 
