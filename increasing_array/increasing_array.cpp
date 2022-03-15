@@ -2,31 +2,28 @@
 #include <vector>
 #include <queue>
 
-
 using namespace std;
-void IncreaseArrRecr(long long int &counter, vector<long int>& vec){
+void IncreaseArrRecr(long long int &counter, vector<long int> &vec)
+{
 
-    if(vec.size() != 1){
-        if(vec[0] <= vec[1]){
+    if (vec.size() != 1)
+    {
+        if (vec[0] <= vec[1])
+        {
 
-           vec.erase(vec.begin());
-           IncreaseArrRecr(counter, vec);
-        }else{
+            vec.erase(vec.begin());
+            IncreaseArrRecr(counter, vec);
+        }
+        else
+        {
             long int i = vec[0] - vec[1];
             vec[1] += i;
             counter += i;
 
             IncreaseArrRecr(counter, vec);
         }
-
-        }
-
-
-
     }
-
-
-
+}
 
 int main()
 {
@@ -38,34 +35,35 @@ int main()
 
     std::deque<long int> vec;
 
-    for(long int i = 0; i<n; ++i){
-         cin >> input;
-         vec.push_back(input);
+    for (long int i = 0; i < n; ++i)
+    {
+        cin >> input;
+        vec.push_back(input);
     }
 
-    //IncreaseArrRecr(counter, vec);
+    // IncreaseArrRecr(counter, vec);
 
-    while(true){
-        if(vec.size() != 1){
-            if(vec[0] <= vec[1]){
+    while (true)
+    {
+        if (vec.size() != 1)
+        {
+            if (vec[0] <= vec[1])
+            {
 
-               vec.pop_front();
-
-            }else{
+                vec.pop_front();
+            }
+            else
+            {
                 long int i = vec[0] - vec[1];
                 vec[1] += i;
                 counter += i;
-
-
             }
-        }else{
+        }
+        else
+        {
             break;
         }
-
-
-
     }
-
 
     cout << counter << endl;
 }

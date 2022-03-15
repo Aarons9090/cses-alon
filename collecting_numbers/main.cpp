@@ -14,29 +14,27 @@ int main()
 
     long int prev_index = 10000000;
 
-
     cin >> n;
     // alkio, indexi
     std::map<long int, long int> vec;
 
-
-    for(long int i = 0; i<n; ++i){
-         cin >> input;
-         vec.insert({input, i});
+    for (long int i = 0; i < n; ++i)
+    {
+        cin >> input;
+        vec.insert({input, i});
     }
 
-
-    for(auto &pair : vec){
+    for (auto &pair : vec)
+    {
 
         // jos nykyisen alkion indeksi pienenee -> kierros aloitetaan alusta
-        if(pair.second < prev_index){
+        if (pair.second < prev_index)
+        {
             counter += 1;
         }
 
         prev_index = pair.second;
-
     }
-
 
     std::cout << counter << std::endl;
 

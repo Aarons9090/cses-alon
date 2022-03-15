@@ -2,7 +2,8 @@
 #include <vector>
 #include <queue>
 
-int main(){
+int main()
+{
     long int input;
 
     std::deque<long int> Q1;
@@ -12,13 +13,13 @@ int main(){
 
     std::cin >> input;
 
-    long int sum = input *(input+1)/2;
+    long int sum = input * (input + 1) / 2;
 
-    if(sum % 2 == 1){
-        std::cout<< "NO" << std::endl;
+    if (sum % 2 == 1)
+    {
+        std::cout << "NO" << std::endl;
         return;
     }
-
 
     return 1;
 }
