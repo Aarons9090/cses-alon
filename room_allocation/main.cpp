@@ -6,15 +6,15 @@ int main()
 {
 
     long int n = 0;
-    map<int, pair<int, int>> mappi;
-    map<int, pair<int, int>>::iterator it;
     vector<pair<pair<int, int>, int>> numbers;
-    vector<int> used_rooms;
+    priority_queue<pair<pair<int, int>, int>, vector<pair<pair<int, int>, int>>, greater<pair<pair<int, int>, int>> > q;
 
     cin >> n;
 
     long long int start;
     long long int end;
+    int max_size = 0;
+    int ans[n];
 
     for (long int i = 0; i < n; ++i)
     {
@@ -28,42 +28,31 @@ int main()
 
     for (auto &p : numbers)
     {
-        start = p.first.first;
-        end = p.first.second;
-
-        if (mappi.size() == 0)
-        {
-            mappi.insert({1, {start, end}});
-            used_rooms.push_back(1);
-            p.second = 1;
+        if(q.size() != 0){
+            // Check if earliest departure is before new customer arrival
+            if(q.top().first.first < p.first.first){
+                // replace available room
+                pair<pair<int, int>, int> new_cust = make_pair(make_pair(p.first.second, p.first.first), q.top().second);
+                ans[p.second] = q.top().second;
+                q.pop();
+                q.push(new_cust);
+                continue;
+            }
         }
-        else
-        {
-            for (it = mappi.begin(); it != mappi.end(); ++it)
-            {
-                if (it->second.second < start)
-                {
-                    it->second.first = start;
-                    it->second.second = end;
-                    used_rooms.push_back(it->first);
-                    p.second = it->first;
-                    break;
-                }
-            }
+        // no rooms availabe, make new room
+        pair<pair<int, int>, int> new_cust = make_pair(make_pair(p.first.second, p.first.first), q.size()+1);
+        ans[p.second] = q.size()+1;
+        q.push(new_cust);
 
-            if (it == mappi.end())
-            {
-                mappi.insert({mappi.size() + 1, {start, end}});
-                used_rooms.push_back(it->first);
-                p.second = it->first;
-            }
+        // check if new max room size
+        if( (int) q.size() > max_size){
+            max_size = q.size();
         }
     }
 
-    for (auto &p : numbers)
-    {
-        // in progress
-        //cout << p.first << p.second.first << p.second.second << endl;
-        
+    cout << max_size << endl;
+    for(int i = 0; i <n; ++i){
+        cout << ans[i] << " ";
     }
+    return 0;
 }
